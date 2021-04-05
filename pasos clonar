@@ -1,0 +1,20 @@
+Para clonar el proyecto debes:
+1.- Colocar el proyecto en la carpeta del servidor apache (TH -XAMP , WWWW-Laragon)
+2.-ubicarse en la carpeta del proyecto y abrir una consola en esa ubicacion
+3.- Ejecutar: composer install
+4.- Generar el archivo .env
+    - Ejecutar: copy .env.example .env (cp .env.example .env )->en Linux
+    - Configurar el .env con la informacion de base de datos
+5.- Ejecutar : php artisan key:generate
+6.- Ejecutar las migracioes y los seed
+    - Ejecutar :  php artisan migrate --seed
+7.- Levantar el servidor
+    - Ejecutar:  php artisan serve
+
+
+Nota:
+Si no muestra las imagenes:
+cd public
+rm storage
+cd..
+php artisan storage:link
