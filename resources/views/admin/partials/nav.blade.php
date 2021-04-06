@@ -24,7 +24,11 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" data-toggle="modal" data-target="#editpost" class="nav-link">
+            @if (request()->is('admin/posts/*'))
+            <a href="{{route('admin.posts.index')}}" class="nav-link">
+                @else
+                <a href="#" data-toggle="modal" data-target="#editpost" class="nav-link">
+                    @endif
                 <i class="far fa-file"></i>
               <p>Crear nueva</p>
             </a>

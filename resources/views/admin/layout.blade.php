@@ -192,7 +192,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
       }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
   </script>
-  @stack('scripts')
-  @include('admin.posts.create')
+
+@unless (request()->is('admin/posts/*')) <!-- a menos que -->
+    @include('admin.posts.create')
+@endunless
+
+@stack('scripts')
+
 </body>
 </html>

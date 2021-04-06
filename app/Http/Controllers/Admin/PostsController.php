@@ -25,10 +25,11 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         //validando el campo recibido
-        $this->validate($request, ['title' => 'required']);
+        $this->validate($request, ['title' => 'required|min:20|unique:posts']);
         //crea la nueva publicacion en la BD unicamente con el titulo y id de usuario
         $post = new Post;
         $post->title = $request->get('title');
+        $post->published_at =Carbon::now();
         $post->user_id = auth()->user()->id;
         $post->category_id = 1;
         $post->save();
