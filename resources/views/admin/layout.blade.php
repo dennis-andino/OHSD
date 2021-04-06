@@ -32,7 +32,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
@@ -94,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
@@ -127,10 +127,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/img/{{auth()->user()->photo}}" class="img-circle elevation-2" alt="Imagen de usuario">
+          <img src="/img/{{auth()->user()->photo}}" class="img-circle elevation-2" alt="Imagen de usuario ">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ auth()->user()->name}}</a>
+          <a href="#" class="d-block">{{ auth()->user()->name}} <br> {{ auth()->user()->roles->first()->name}}</a>
         </div>
       </div>
       <!-- Sidebar Menu -->

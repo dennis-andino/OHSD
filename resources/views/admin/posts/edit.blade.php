@@ -55,7 +55,7 @@
                             <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                 <input type="text" name="published_at"
                                     class="form-control datetimepicker-input @error('published_at') is-invalid @enderror"
-                                    value="{{ old('published_at', $post->published_at->format('m/d/Y')) }}" data-target="#reservationdate" />
+                                    value="{{ old('published_at', optional($post->published_at)->format('m/d/Y')) }}" data-target="#reservationdate" />
                                 <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
@@ -118,7 +118,7 @@
             <form method="POST" action="{{ route('admin.photos.destroy',$photo)}}">
                 {{ method_field('DELETE')}}{{ csrf_field() }}
                     <button class="btn btn-xs btn-danger" style="position: absolute"><i class="far fa-trash-alt"></i></button>
-                    <img class="img-thumbnail"  src="/storage/{{$photo->url}}"/>
+                    <img class="img-thumbnail"  src="/storage/{{$photo->url?$photo->url:''}}"/>
             </form>
         </div>
         @endforeach

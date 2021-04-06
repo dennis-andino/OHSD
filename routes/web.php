@@ -9,7 +9,10 @@ Route::get('posts', function () {
     return Post::all();
 });
 
-Route::get('/', 'PagesController@home');
+Route::get('/', 'PagesController@home')->name('pages.home');
+Route::get('contact', 'PagesController@contact')->name('pages.contact');
+Route::get('archive', 'PagesController@archive')->name('pages.archive');
+
 Route::get('blog/{id}', 'PostsController@show')->name('posts.show');
 Route::get('categorias/{category}', 'CategoriesController@show')->name('categories.show');
 Route::get('tags/{tag}', 'TagsController@show')->name('tags.show');
@@ -22,6 +25,8 @@ Route::group(
         'middleware' => 'auth'
     ],
     function () {
+        Route::get('users', 'UserController@index')->name('user.index');
+        Route::get('users/{user}', 'UserController@show')->name('user.show');
         Route::get('posts', 'PostsController@index')->name('admin.posts.index');
         Route::get('posts/create', 'PostsController@create')->name('admin.posts.create');
         Route::post('posts', 'PostsController@save')->name('admin.posts.save');

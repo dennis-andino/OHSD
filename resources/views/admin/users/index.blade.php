@@ -4,13 +4,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Publicaciones registradas</h1>
+          <h1 class="m-0">Lista de usuarios </h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-            <li class="breadcrumb-item active">Publicaciones</li>
+            <li class="breadcrumb-item active">Usuarios</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -24,7 +24,7 @@
       <div class="card">
         <div class="card-header">
           <!-- <h3 class="card-title">...</h3> -->
-          <button class="btn btn-primary float-right" data-toggle="modal" data-target="#editpost">Crear publicación</button>
+          <button class="btn btn-primary float-right" data-toggle="modal" data-target="#editpost">Agregar usuario</button>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -32,24 +32,29 @@
             <thead>
             <tr>
               <th>ID</th>
-              <th>Titulo</th>
-              <th>Categoria</th>
-              <th>Usuario</th>
-              <th>Fecha</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Rol</th>
+              <th>Permisos</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
-                @foreach ($posts as $post)
+                @foreach ($users as $user)
                 <tr>
-                <td>{{$post->id}}</td>
-                <td>{{$post->title}}</td>
-                <td>{{$post->category->name}}</td>
-                <td>{{$post->autor->name}}</td>
-                <td>{{$post->published_at}}</td>
-                <td><a href="{{ route('posts.show', $post)}}" class="btn btn-sm btn-info" target="_blank"><i class="far fa-eye"></i></a>
-                    <a href="{{ route('admin.posts.edit', $post)}}" class="btn btn-sm btn-warning"><i class="far fa-edit"></i></a>
-                    <form method="POST" action="{{route('admin.posts.disable', $post)}}" style="display: inline">
+                <td>{{$user->id}}</td>
+                <td>{{$user->name}}</td>
+                <td>{{$user->email}}</td>
+                <td>{{$user->getRoleNames()->implode(', ')}}</td>
+                <td>
+                    @foreach ( $user->permissions as $permisso )
+                    {{$permisso->name}}
+                    @endforeach
+                </td>
+
+                <td><a href="{{ route('user.show', $user)}}" class="btn btn-sm btn-info"><i class="far fa-eye"></i></a>
+                    <a href="{{ route('admin.posts.edit', $user)}}" class="btn btn-sm btn-warning"><i class="far fa-edit"></i></a>
+                    <form method="POST" action="{{route('admin.posts.disable', $user)}}" style="display: inline">
                         {{ csrf_field() }} {{ method_field('PUT')}}
                         <button class="btn btn-sm btn-danger" onclick="return confirm('¿ Estas seguro de eliminar esta publicacion?')"><i class="fas fa-trash"></i></button>
                     </form>

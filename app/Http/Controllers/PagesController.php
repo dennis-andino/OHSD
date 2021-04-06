@@ -16,4 +16,14 @@ class PagesController extends Controller
         $posts = Post::published()->simplePaginate(5); //Trae los resultados paginados por anterior-siguiente
         return view('welcome', compact('posts'));
     }
+
+    public function contact()
+    {
+        return view('pages.contact');
+    }
+
+    public function archive()
+    {
+        return view('pages.archive');
+    }
 }

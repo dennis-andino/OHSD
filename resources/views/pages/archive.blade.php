@@ -8,34 +8,31 @@
                 @if (isset($title))
                 {{ $title }}
                 @else
-                Ultimas Noticias
+                Acciones y logros en materia de drogas
                 @endif
                 <a href="#"><i class="fa fa-rss"></i></a></h4>
         </div><!-- end blog-top -->
         <div class="blog-list clearfix">
-            @foreach ($posts as $post )
+            {{--@foreach ($posts as $post ) --}}
             <div class="blog-box row">
                 <div class="col-md-4">
                     <div class="post-media">
                         <a href="" title="">
-                            <img src="/storage/{{ $post->photos->first()?$post->photos->first()->url:''}}}}" alt="" class="img-fluid">
+                            <img src="/storage/{{-- $post->photos->first()->url--}}" alt="" class="img-fluid">
                             <div class="hovereffect"></div>
                         </a>
                     </div><!-- end media -->
                 </div><!-- end col -->
                 <div class="blog-meta big-meta col-md-8">
-                    <h4><a href="blog/{{$post->id}}" title="">{{ $post->title}}</a></h4>
-                        <p>{{ $post->excerpt}}...</p>
-                    <small class="firstsmall"><a class="bg-orange" href="{{route('categories.show',$post->category)}}" title="">{{$post->category->name}}</a></small>
-                    <small><a href="tech-single.html" title="">{{ $post->published_at->format('M d Y')}}</a></small>
-                    <small><a href="tech-author.html" title="">por : OHSD</a></small><br>
-                    @foreach ($post->tags as $tag )
-            <small><a href="{{ route('tags.show', $tag)}}">#{{ $tag->name}}</a></small>
-            @endforeach
+                    <h4><a href="" title="">Nombre de Informe</a></h4>
+                        <p>Resumen de informe</p>
+                    <small class="firstsmall"><a class="bg-orange" href="" title="">Año</a></small>
+                    <small><a href="" title="">fecha de publicacion</a></small>
+                    <small><a href="" title="">by OHSD</a></small><br>
                 </div><!-- end meta -->
             </div><!-- end blog-box -->
             <hr class="invis">
-            @endforeach
+            {{--@endforeach--}}
         </div><!-- end blog-list -->
     </div><!-- end page-wrapper -->
     <hr class="invis">
@@ -45,7 +42,7 @@
                 <ul class="pagination justify-content-start">
                     <!--<li class="page-item"><a class="page-link" href="#">1</a></li>-->
                     <li class="page-item">
-                         {{$posts->links()}}
+                        {{--}} {{$posts->links()}}--}}
                     </li>
                 </ul>
             </nav>

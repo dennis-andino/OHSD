@@ -19,7 +19,6 @@ class CreatePostsTable extends Migration
             $table->text('excerpt')->nullable();
             $table->mediumText('body')->nullable();
             $table->timestamp('published_at')->nullable();
-            $table->string('photo')->nullable();
             $table->boolean('visible')->default(1);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('category_id')->nullable();

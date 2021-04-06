@@ -14,7 +14,9 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        //$posts = Post::all();
+        //$posts = Post::where('user_id',auth()->id())->get();
+        $posts = Post::allowed()->get();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -24,12 +26,13 @@ class PostsController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', new Post);
         //validando el campo recibido
         $this->validate($request, ['title' => 'required|min:20|unique:posts']);
         //crea la nueva publicacion en la BD unicamente con el titulo y id de usuario
         $post = new Post;
         $post->title = $request->get('title');
-        $post->published_at =Carbon::now();
+        $post->published_at = Carbon::now();
         $post->user_id = auth()->user()->id;
         $post->category_id = 1;
         $post->save();
@@ -39,6 +42,7 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
+        $this->authorize('update', $post);
         $categories = Category::all();
         $tags = Tag::all();
         return view('admin.posts.edit', compact('categories', 'tags', 'post'));
@@ -46,6 +50,7 @@ class PostsController extends Controller
 
     public function update(Post $post, StorePostRequest $request)
     {
+        $this->authorize('update', $post);
         $post->update($request->all());
         $post->tags()->sync($request->get('tags'));
         return back()->with('flash', 'Tu publicación ha sido guardada exitosamente');
@@ -53,12 +58,10 @@ class PostsController extends Controller
 
     public function disable(Post $post)
     {
+        $this->authorize('delete', $post);
         $post->update([
-            'visible'=> false
+            'visible' => false
         ]);
         return redirect()->route('admin.posts.index')->with('flash', 'Tu publicación ha sido deshabilitada.');
     }
-
-
-
 }

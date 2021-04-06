@@ -12,12 +12,12 @@
             <span class="color-orange"><a href="" title="">{{ $post->category->name}}</a></span>
             <h3>{{ $post->title}}</h3>
             <div class="blog-meta big-meta">
-                <small><a href="tech-single.html" title="">{{ $post->published_at}}</a></small>
-                <small><a href="tech-author.html" title="">by OHSD</a></small>
+                <small><a href="" title="">{{optional($post->published_at)->format('d M Y')}}</a></small>
+                <small><a href="" title="">by OHSD</a></small>
             </div><!-- end meta -->
         </div><!-- end title -->
         <div class="single-post-media">
-            <img src="/storage/{{$post->photos->first()->url}}" alt="" class="img-fluid">
+            <img src="/storage/{{$post->photos->first()?$post->photos->first()->url:''}}" alt="" class="img-fluid">
         </div><!-- end media -->
         <div class="blog-content">
             <div class="pp">

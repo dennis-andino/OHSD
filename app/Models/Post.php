@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 use Carbon\Carbon;
 
 class Post extends Model
@@ -16,7 +17,6 @@ class Post extends Model
         'published_at',
         'category_id',
         'excerpt',
-        'photo',
         'user_id',
         'visible'
     ];
@@ -39,9 +39,23 @@ class Post extends Model
             ->where('published_at', '<=', Carbon::now());
     }
 
+    public function scopeAllowed($query)
+    {
+        if( auth()->user()->can('view',$this) )
+        {
+            return $query;
+        }
+        return $query->where('user_id', auth()->id());
+    }
+
     public function photos()
     {
         return $this->hasMany(Photo::class);
+    }
+
+    public function autor()
+    {
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function setPublishedAtAttribute($published_at)
