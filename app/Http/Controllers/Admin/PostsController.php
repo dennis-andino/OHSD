@@ -56,7 +56,7 @@ class PostsController extends Controller
         return back()->with('flash', 'Tu publicación ha sido guardada exitosamente');
     }
 
-    public function disable(Post $post)
+    public function destroy(Post $post)
     {
         $this->authorize('delete', $post);
         $post->update([

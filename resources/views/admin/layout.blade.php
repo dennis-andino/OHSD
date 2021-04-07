@@ -130,7 +130,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="/img/{{auth()->user()->photo}}" class="img-circle elevation-2" alt="Imagen de usuario ">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ auth()->user()->name}} <br> {{ auth()->user()->roles->first()->name}}</a>
+          <a href="#" class="d-block">{{ auth()->user()->name}} <br> {{ auth()->user()->roles->first()?auth()->user()->roles->first()->name:'Sin Roles'}}</a>
         </div>
       </div>
       <!-- Sidebar Menu -->
@@ -198,6 +198,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
 @endunless
 
 @stack('scripts')
-
 </body>
 </html>

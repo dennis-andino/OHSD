@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use App\Models\User;
+
 
 class UserController extends Controller
 {
@@ -15,8 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
-       $users=User::all();
-       return view('admin.users.index',compact('users'));
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -26,7 +30,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $user = new User();
+        $roles = Role::with('permissions')->get();
+        $permissions = Permission::pluck('name', 'id');
+        return view('admin.users.create', compact('user', 'roles', 'permissions'));
     }
 
     /**
@@ -37,7 +44,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name'=>'required|min:10',
+            'email'=>'required|email|max:255|unique:users',
+            'password'=>'required|min:8'
+        ]);
+        $user=User::create($data);
+        $user->assignRole($request->roles);
+        $user->givePermissionTo($request->permissions);
+
+        return redirect()->route('admin.users.index')->with('flash', 'Usuario creado satisfactoriamente.');
     }
 
     /**
@@ -57,9 +73,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        //$roles=Role::all();
+        // $roles=Role::pluck('name','id');
+        $roles = Role::with('permissions')->get();
+        $permissions = Permission::pluck('name', 'id');
+        return view('admin.users.edit', compact('user', 'roles', 'permissions'));
     }
 
     /**
@@ -69,9 +89,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+
+        $data = $request->validated();
+        $user->update($data);
+        return back()->with('flash', 'Informacion de usuario actualizada satisfactoriamente.');
     }
 
     /**

@@ -25,7 +25,6 @@
     </form>
 </div>
   <!-- End Modal -->
-@
 @push('scripts')
 <script>
     if(window.location.hash==='#create'){

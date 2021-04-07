@@ -24,7 +24,7 @@
       <div class="card">
         <div class="card-header">
           <!-- <h3 class="card-title">...</h3> -->
-          <button class="btn btn-primary float-right" data-toggle="modal" data-target="#editpost">Agregar usuario</button>
+          <a href="{{route('admin.users.create')}}" class="btn btn-primary float-right">Agregar usuario</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -52,9 +52,9 @@
                     @endforeach
                 </td>
 
-                <td><a href="{{ route('user.show', $user)}}" class="btn btn-sm btn-info"><i class="far fa-eye"></i></a>
-                    <a href="{{ route('admin.posts.edit', $user)}}" class="btn btn-sm btn-warning"><i class="far fa-edit"></i></a>
-                    <form method="POST" action="{{route('admin.posts.disable', $user)}}" style="display: inline">
+                <td><a href="{{ route('admin.users.show', $user)}}" class="btn btn-sm btn-info"><i class="far fa-eye"></i></a>
+                    <a href="{{ route('admin.users.edit', $user)}}" class="btn btn-sm btn-warning"><i class="far fa-edit"></i></a>
+                    <form method="POST" action="{{route('admin.users.destroy',$user)}}" style="display: inline">
                         {{ csrf_field() }} {{ method_field('PUT')}}
                         <button class="btn btn-sm btn-danger" onclick="return confirm('¿ Estas seguro de eliminar esta publicacion?')"><i class="fas fa-trash"></i></button>
                     </form>

@@ -46,4 +46,9 @@ class User extends Authenticatable
     public function posts(){ // relacion entre usuarios y posts
         return $this->hasMany(Post::class,'user_id');
     }
+
+
+    public function setPasswordAttribute($password){ // Encripta la contraseña recibida
+        $this->attributes['password']=bcrypt($password);
+    }
 }
