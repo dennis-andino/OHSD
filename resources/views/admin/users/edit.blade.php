@@ -25,7 +25,8 @@
                         </div>
                         <div class="form-group">
                             <label>Correo: </label>
-                            <input type="email" name="email" value="{{ old('email', $user->email) }}" class="form-control">
+                            <input type="email" name="email" value="{{ old('email', $user->email) }}"
+                                class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Clave: </label>
@@ -52,11 +53,24 @@
                     <h3 class="card-title">Roles</h3>
                 </div>
                 <div class="card-body">
+
+                    @role('Admin')
                     <form method="POST" action="{{ route('admin.users.roles.update', $user) }}">
                         {{ csrf_field() }} {{ method_field('PUT') }}
                         @include('admin.roles.checkboxes')
+
                         <button type="submit" class="btn btn-primary btn-block">Actualizar roles</button>
-                        </form>
+                    </form>
+                @else
+                    <ul class="list-group">
+                        @forelse ($user->roles as $role)
+                            <li class="list-group-item">{{ $role->name }}</li>
+                        @empty
+                            <li class="list-group-item">No Tiene Roles</li>
+                        @endforelse
+                    </ul>
+                    @endrole
+
                 </div>
             </div>
             <div class="card card-primary card-outline">
@@ -64,11 +78,21 @@
                     <h3 class="card-title">Permisos</h3>
                 </div>
                 <div class="card-body">
+                    @role('Admin')
                     <form method="POST" action="{{ route('admin.users.permissions.update', $user) }}">
                         {{ csrf_field() }} {{ method_field('PUT') }}
                         @include('admin.permissions.checkboxes')
                         <button type="submit" class="btn btn-primary btn-block">Actualizar permisos</button>
-                        </form>
+                    </form>
+                @else
+                    <ul class="list-group">
+                        @forelse ($user->permissions as $permission)
+                            <li class="list-group-item">{{ $permission->name }}</li>
+                        @empty
+                            <li class="list-group-item">No tiene Permisos</li>
+                        @endforelse
+                    </ul>
+                    @endrole
                 </div>
             </div>
         </div>

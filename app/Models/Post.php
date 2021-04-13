@@ -36,14 +36,16 @@ class Post extends Model
     public function scopePublished($query)
     {
         $query->latest('published_at')
-            ->where('published_at', '<=', Carbon::now());
+            ->where('published_at', '<=', Carbon::now())
+            ->where('visible',1);
     }
 
     public function scopeAllowed($query)
     {
-        if( auth()->user()->can('view',$this) )
+        if( auth()->user()->can('read_post',$this) )
         {
-            return $query;
+
+            return $query->where('visible',1);
         }
         return $query->where('user_id', auth()->id());
     }

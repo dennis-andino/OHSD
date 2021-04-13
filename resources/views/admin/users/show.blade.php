@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="card card-primary card-outline">
             <div class="card-body box-profile">
               <div class="text-center">
@@ -28,12 +28,12 @@
                 @endif
               </ul>
 
-              <a href="{{--route('admin.users.edit',$user)--}}" class="btn btn-primary btn-block"><b>Modificar</b></a>
+              <a href="{{route('admin.users.edit',$user)}}" class="btn btn-primary btn-block"><b>Modificar</b></a>
             </div>
             <!-- /.card-body -->
           </div>
     </div>
-    <div class="col-md-3">
+    <!--<div class="col-md-3">
         <div class="card card-primary card-outline">
             <div class="card-header with-border">
                 <h3 class="card-title">Publicaciones</h3>
@@ -53,8 +53,8 @@
             </div>
         </div>
 
-    </div>
-    <div class="col-md-3">
+    </div>-->
+    <div class="col-md-4">
         <div class="card card-primary card-outline">
             <div class="card-header with-border">
                 <h3 class="card-title">Roles</h3>
@@ -76,7 +76,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="card card-primary card-outline">
             <div class="card-header with-border">
                 <h3 class="card-title">Permisos adicionales</h3>

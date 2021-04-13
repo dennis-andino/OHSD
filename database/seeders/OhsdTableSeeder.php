@@ -41,17 +41,47 @@ class OhsdTableSeeder extends Seeder
         $readerRole = Role::create(['name' => 'Reader']);
 
         //Permisos
-        $viewPermission = Permission::create(['name' => 'read']);
-        $createPermission = Permission::create(['name' => 'create']);
-        $editPermission = Permission::create(['name' => 'edit']);
-        $deletePermission = Permission::create(['name' => 'delete']);
+        $viewPermissionPost = Permission::create(['name' => 'read_post']);
+        $viewPermissionPost = Permission::create(['name' => 'read_global_post']);
+        $createPermissionPost = Permission::create(['name' => 'create_post']);
+        $editPermissionPost = Permission::create(['name' => 'edit_post']);
+        $deletePermissionPost = Permission::create(['name' => 'delete_post']);
+        $viewPermissionUser = Permission::create(['name' => 'read_user']);
+        $createPermissionUser = Permission::create(['name' => 'create_user']);
+        $editPermissionUser = Permission::create(['name' => 'edit_user']);
+        $deletePermissionUser = Permission::create(['name' => 'delete_user']);
+        $viewPermissionRoles = Permission::create(['name' => 'read_roles']);
+        $createPermissionRoles = Permission::create(['name' => 'create_roles']);
+        $editPermissionRoles = Permission::create(['name' => 'edit_roles']);
+        $deletePermissionRoles = Permission::create(['name' => 'delete_roles']);
+
+        //Permisos heredados por Rol Admin
+        $adminRole->givePermissionTo('read_post');
+        $adminRole->givePermissionTo('delete_post');
+        $adminRole->givePermissionTo('read_user');
+        $adminRole->givePermissionTo('create_user');
+        $adminRole->givePermissionTo('edit_user');
+        $adminRole->givePermissionTo('delete_user');
+        $adminRole->givePermissionTo('read_roles');
+        $adminRole->givePermissionTo('create_roles');
+        $adminRole->givePermissionTo('edit_roles');
+        $adminRole->givePermissionTo('delete_roles');
+
+        //Permisos heredados por Rol Writer
+        $writerRole->givePermissionTo('read_post');
+        $writerRole->givePermissionTo('edit_post');
+        $writerRole->givePermissionTo('create_post');
+
+        //Permisos heredados por Rol Reader
+        $readerRole->givePermissionTo('read_global_post');
+
 
 
         //Usuario Administrador
         $admin = new User();
         $admin->name = 'Administrador';
         $admin->email = 'admin@ohsd.com';
-        $admin->password = '$2y$10$YLYeRCOfm5AWPS3TEkRBZeubh9ibUMO6n9HI3/aHu0tPr5M.IXAyC';
+        $admin->password = 'administr@dor';
         $admin->photo = 'defaultUser.png';
         $admin->save();
 
@@ -59,9 +89,9 @@ class OhsdTableSeeder extends Seeder
 
         //Usuario Escritor de contenido
         $writer = new User();
-        $writer->name = 'Elsa Capunta';
+        $writer->name = 'Elsa Gonzales';
         $writer->email = 'elsa@ohsd.com';
-        $writer->password = '$2y$10$YLYeRCOfm5AWPS3TEkRBZeubh9ibUMO6n9HI3/aHu0tPr5M.IXAyC';
+        $writer->password = 'administr@dor';
         $writer->photo = 'defaultUser.png';
         $writer->save();
 
@@ -69,9 +99,9 @@ class OhsdTableSeeder extends Seeder
 
         //Usuario Visualizador de contenido
         $reader = new User();
-        $reader->name = 'Elvir Godoy';
-        $reader->email = 'virgodoy@ohsd.com';
-        $reader->password = '$2y$10$YLYeRCOfm5AWPS3TEkRBZeubh9ibUMO6n9HI3/aHu0tPr5M.IXAyC';
+        $reader->name = 'Carlos Godoy';
+        $reader->email = 'cgodoy@ohsd.com';
+        $reader->password = 'administr@dor';
         $reader->photo = 'defaultUser.png';
         $reader->save();
 

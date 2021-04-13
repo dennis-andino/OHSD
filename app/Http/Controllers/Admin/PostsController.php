@@ -58,10 +58,19 @@ class PostsController extends Controller
 
     public function destroy(Post $post)
     {
+        dd(); die;
         $this->authorize('delete', $post);
         $post->update([
             'visible' => false
         ]);
+        return redirect()->route('admin.posts.index')->with('flash', 'Tu publicación ha sido deshabilitada.');
+    }
+
+    public function disable(Post $post)
+    {
+        $this->authorize('delete', $post);
+        $post->visible=false;
+        $post->update();
         return redirect()->route('admin.posts.index')->with('flash', 'Tu publicación ha sido deshabilitada.');
     }
 }

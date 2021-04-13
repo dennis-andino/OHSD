@@ -105,7 +105,7 @@ class UserController extends Controller
 
         $data = $request->validated();
         $user->update($data);
-        return redirect()->route('admin.user.edit,', $user)->with('flash', 'Informacion de usuario actualizada satisfactoriamente.');
+        return redirect()->route('admin.users.show', $user)->with('flash', 'Informacion de usuario actualizada satisfactoriamente.');
     }
 
     /**
@@ -116,12 +116,20 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        var_dump($user); die;
         $this->authorize('delete', "user");
+        $user->visible=false;
+        $user->update();
+        return redirect()->route('admin.users.index')->withFlash('Usuario Eliminado');
+    }
 
-        $user->update([
-            'visible' => false
-        ]);
 
-        return redirect()->route('admin.user.index')->withFlash('Usuario Eliminado');
+    public function disable(User $user)
+    {
+        //var_dump($user); die;
+        $this->authorize('delete', "user");
+        $user->visible=false;
+        $user->update();
+        return redirect()->route('admin.users.index')->withFlash('Usuario Eliminado');
     }
 }

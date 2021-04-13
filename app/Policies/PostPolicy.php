@@ -39,7 +39,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        return $user->id===$post->user_id || $user->hasPermissionTo('read');
+        return $user->id===$post->user_id || $user->hasPermissionTo('read_post');
     }
 
     /**
@@ -50,7 +50,7 @@ class PostPolicy
      */
     public function create(User $user)
     {
-       return $user->hasPermissionTo('create');
+       return $user->hasPermissionTo('create_post');
     }
 
     /**
@@ -62,7 +62,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        return /*$user->id===$post->user_id || */ $user->hasPermissionTo('edit');
+        return /*$user->id===$post->user_id || */ $user->hasPermissionTo('edit_post');
     }
 
     /**
@@ -74,7 +74,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return $user->id===$post->user_id || $user->hasPermissionTo('delete');
+        return $user->id===$post->user_id || $user->hasPermissionTo('delete_post');
     }
 
     /**

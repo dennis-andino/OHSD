@@ -54,9 +54,9 @@ class User extends Authenticatable
 
     public function scopeAllowed($query)
     {
-        if( auth()->user()->can('read',$this) )
+        if( auth()->user()->can('read_user',$this) )
         {
-            return $query;
+            return $query->where('visible', 1);
         }
         return $query->where('id', auth()->id());
     }

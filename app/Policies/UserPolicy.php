@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function view(User $authUser, User $user)
     {
-        return $user->id===$user->id || $user->hasPermissionTo('read');
+        return $user->id===$user->id || $user->hasPermissionTo('read_user');
     }
 
     /**
@@ -40,7 +40,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->hasPermissionTo('create');
+        return $user->hasPermissionTo('create_user');
     }
 
     /**
@@ -52,7 +52,7 @@ class UserPolicy
      */
     public function update(User $authUser, User $user)
     {
-        return $authUser->id===$user->id || $user->hasPermissionTo('edit');
+        return $authUser->id===$user->id || $user->hasPermissionTo('edit_user');
     }
 
     /**
@@ -64,7 +64,7 @@ class UserPolicy
      */
     public function delete(User $authUser, User $user)
     {
-        return $authUser->id===$user->id || $user->hasPermissionTo('delete');
+        return $authUser->id===$user->id || $user->hasPermissionTo('delete_user');
     }
 
     /**
