@@ -51,4 +51,13 @@ class User extends Authenticatable
     public function setPasswordAttribute($password){ // Encripta la contraseña recibida
         $this->attributes['password']=bcrypt($password);
     }
+
+    public function scopeAllowed($query)
+    {
+        if( auth()->user()->can('read',$this) )
+        {
+            return $query;
+        }
+        return $query->where('id', auth()->id());
+    }
 }

@@ -9,10 +9,11 @@ class CategoriesController extends Controller
 {
     public function show(Category $category)
     {
-        return view('welcome',
-    [
+        $categories=Category::all();
+        return view('welcome',[
         'title' => "Ultimas noticias de la categoria $category->name",
-        'posts' => $category->posts()->simplePaginate(5)
+        'posts' => $category->posts()->simplePaginate(5),
+        'categories' => $categories,
     ]);
     }
 }

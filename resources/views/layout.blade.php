@@ -54,7 +54,7 @@
             </div><!-- end container -->
         </section>
 <div class="footer">
-    <center><p>Copyright &copy; 2021 - <a href="#">Observatorio de drogas</a> &middot; All Rights Reserved</p></center>
+    <center><p>Copyright &copy; 2021 - <a href="#">Observatorio hondureño sobre drogas</a><br>Todos los derechos reservados<br>DDS</p></center>
   </div>
     </div><!-- end wrapper -->
     <!-- Core JavaScript

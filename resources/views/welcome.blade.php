@@ -18,17 +18,17 @@
                 <div class="col-md-4">
                     <div class="post-media">
                         <a href="" title="">
-                            <img src="/storage/{{ $post->photos->first()?$post->photos->first()->url:''}}}}" alt="" class="img-fluid">
+                            <img src="/storage/{{ $post->photos->first()?$post->photos->first()->url:''}}" alt="" class="img-fluid">
                             <div class="hovereffect"></div>
                         </a>
                     </div><!-- end media -->
                 </div><!-- end col -->
                 <div class="blog-meta big-meta col-md-8">
-                    <h4><a href="blog/{{$post->id}}" title="">{{ $post->title}}</a></h4>
+                    <h4><a href=" {{ route('posts.show',$post->id)}}" title="">{{ $post->title}}</a></h4>
                         <p>{{ $post->excerpt}}...</p>
                     <small class="firstsmall"><a class="bg-orange" href="{{route('categories.show',$post->category)}}" title="">{{$post->category->name}}</a></small>
-                    <small><a href="tech-single.html" title="">{{ $post->published_at->format('M d Y')}}</a></small>
-                    <small><a href="tech-author.html" title="">por : OHSD</a></small><br>
+                    <small><a href="" title="">{{ $post->published_at->format('M d Y')}}</a></small>
+                    <small><a href="" title="">por : OHSD</a></small><br>
                     @foreach ($post->tags as $tag )
             <small><a href="{{ route('tags.show', $tag)}}">#{{ $tag->name}}</a></small>
             @endforeach

@@ -56,7 +56,7 @@
                     <a href="{{ route('admin.users.edit', $user)}}" class="btn btn-sm btn-warning"><i class="far fa-edit"></i></a>
                     <form method="POST" action="{{route('admin.users.destroy',$user)}}" style="display: inline">
                         {{ csrf_field() }} {{ method_field('PUT')}}
-                        <button class="btn btn-sm btn-danger" onclick="return confirm('¿ Estas seguro de eliminar esta publicacion?')"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-sm btn-danger" onclick="return confirm('¿ Estas seguro de eliminar este Usuario?')"><i class="fas fa-trash"></i></button>
                     </form>
                 </td>
               </tr>
