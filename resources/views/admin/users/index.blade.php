@@ -1,16 +1,20 @@
 @extends('admin.layout')
 @section('header')
+{{--<h1>
+    Usuarios
+    <small>Listado</small>
+</h1>--}}
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Lista de usuarios </h1>
+          <h1 class="m-0">Lista de Usuarios </h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-            <li class="breadcrumb-item active">Usuarios</li>
+            <li class="breadcrumb-item active">Usuario</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -24,7 +28,7 @@
       <div class="card">
         <div class="card-header">
           <!-- <h3 class="card-title">...</h3> -->
-          <a href="{{route('admin.users.create')}}" class="btn btn-primary float-right">Agregar usuario</a>
+          <a href="{{route('admin.users.create')}}" class="btn btn-primary float-right">Agregar Usuario</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">

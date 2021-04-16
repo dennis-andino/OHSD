@@ -56,13 +56,13 @@
         </div>
         <div class="row">
           <div class="col-8">
-            <div class="icheck-primary">
+          {{-- <div class="icheck-primary">
               <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="remember">
                                         {{ __('Recordarme') }}
                                     </label>
-            </div>
+            </div>--}}
           </div>
           <!-- /.col -->
           <div class="col-4">
@@ -74,13 +74,13 @@
         </div>
       </form>
       <!-- /.social-auth-links -->
-      <p class="mb-1">
+      {{--<p class="mb-1">
        @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Recuperar clave de acceso?') }}
                                     </a>
                                 @endif
-      </p>
+      </p>--}}
     </div>
     <!-- /.card-body -->
   </div>

@@ -30,9 +30,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', $user);
-
         $user = new User();
+        $this->authorize('create', $user);
         $roles = Role::with('permissions')->get();
         $permissions = Permission::pluck('name', 'id');
         return view('admin.users.create', compact('user', 'roles', 'permissions'));
@@ -50,11 +49,11 @@ class UserController extends Controller
         $this->authorize('create', new User);
 
         $data = $request->validate([
-            'name'=>'required|min:10',
-            'email'=>'required|email|max:255|unique:users',
-            'password'=>'required|min:8'
+            'name' => 'required|min:10',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:8'
         ]);
-        $user=User::create($data);
+        $user = User::create($data);
         $user->assignRole($request->roles);
         $user->givePermissionTo($request->permissions);
 
@@ -116,9 +115,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        var_dump($user); die;
+        var_dump($user);
+        die;
         $this->authorize('delete', "user");
-        $user->visible=false;
+        $user->visible = false;
         $user->update();
         return redirect()->route('admin.users.index')->withFlash('Usuario Eliminado');
     }
@@ -128,7 +128,7 @@ class UserController extends Controller
     {
         //var_dump($user); die;
         $this->authorize('delete', "user");
-        $user->visible=false;
+        $user->visible = false;
         $user->update();
         return redirect()->route('admin.users.index')->withFlash('Usuario Eliminado');
     }

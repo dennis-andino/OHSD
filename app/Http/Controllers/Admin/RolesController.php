@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role; //este lo tuve que agregar
 
 class RolesController extends Controller
@@ -19,6 +20,7 @@ class RolesController extends Controller
             'roles' => Role::all()
 
         ]);
+         //Retorna la vista en /resources/views/admin/roles/index.blade.php/
     }
 
     /**
@@ -26,9 +28,14 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function create()
     {
-        //
+        $permissions=Permission::pluck('name','id');
+        $role=new Role();
+        return view('admin.roles.create',compact('permissions','role'));
     }
 
     /**
@@ -39,7 +46,16 @@ class RolesController extends Controller
 
     public function store(Request $request)
     {
-        //
+
+        $data=$request->validate([
+            'name' => 'required|unique:Roles',
+            'guard_name' =>'required'
+        ]);
+        $role=Role::create($data);
+        if($request->has('permissions')){
+            $role->givePermissionTo($request->permissions);
+        }
+        return redirect()->route('admin.roles.index')->withFlash('Rol creado con exito !!') ;
     }
 
     /**
@@ -59,9 +75,10 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Role $role )
     {
-        //
+        $permissions=Permission::pluck('name','id');
+        return view('admin.roles.edit',compact('role','permissions'));
     }
 
     /**
@@ -71,9 +88,20 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        //
+        $data=$request->validate([
+            'name' => 'required|unique:Roles,name,'.$role->id,
+            'guard_name' =>'required'
+        ]);
+        $role->update($data);
+        $role->permissions()->detach();
+
+        if($request->has('permissions')){
+            $role->givePermissionTo($request->permissions);
+        }
+
+        return redirect()->route('admin.roles.edit',$role)->withFlash('Rol actualizado con exito !!') ;
     }
 
     /**

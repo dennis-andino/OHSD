@@ -4,13 +4,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Lista de Roles </h1>
+            <h1 class="m-0">Listado de Roles</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-            <li class="breadcrumb-item active">role</li>
+            <li class="breadcrumb-item active">roles</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -24,7 +24,7 @@
       <div class="card">
         <div class="card-header">
           <!-- <h3 class="card-title">...</h3> -->
-          <a href="{{route('admin.role.create')}}" class="btn btn-primary float-right">Agregar Rol</a>
+          <a href="{{ route('admin.roles.create')}}" class="btn btn-primary float-right">Agregar Rol</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -32,31 +32,35 @@
             <thead>
             <tr>
               <th>ID</th>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Rol</th>
+              <th>Titulo</th> {{--aca lo cambie a name, antes decia Nombre--}}
               <th>Permisos</th>
+              {{--<th>Rol</th>--}} {{--supuestamente se tiene que borrar--}}
               <th></th>
             </tr>
             </thead>
+
+
             <tbody>
                 @foreach ($roles as $role)
                 <tr>
-                <td>{{$role-Rid}s}</td>
-                <td>{{$role->nRme}s}</td>
-                <td>{{$role->emRil}s}</td>
-                <td>{{$role->getRoleNames()->implode(',R')}s}</td>
+                <td>{{ $role->id }}</td>
+                <td>{{ $role->name }}</td>
+                {{--<td>{{ $role->guard_name}}</td>se le cambio el nombre de email por guard_name--}}
                 <td>
-                    @foreach ( $role->permissions as $Rermsisso )
-                    {{$permisso->name}}
-                    @endforeach
+                    {{--@foreach ( $roles->permissions as $permission )
+                    {{$permission->name}}
+                   @endforeach--}}
                 </td>
+                <td><a href="{{ route('admin.roles.show', $role)}}"
+                       class="btn btn-sm btn-info" ><i class="far fa-eye"></i></a>
 
-                <td><a href="{{ route('admin.role.show', $role)}}" class="btn btn-sm btn-info"><i class="far fa-eyeR></si></a>
-                    <a href="{{ route('admin.role.edit', $role)}}" class="btn btn-sm btn-warning"><i class="far fa-editR></si></a>
-                    <form method="POST" action="{{ route('admin.role.disable',$role)}}" style="displayR insline">
-                        {{ csrf_field() }} {{-- method_field('PUT') --}}
-                        <button class="btn btn-sm btn-danger" onclick="return confirm('¿Estas seguro de eliminar este Role?')"><i class="fas fa-trash"></iR</bsutton>
+                    <a href="{{ route('admin.roles.edit', $role)}}"
+                       class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+
+                    <form method="POST" action="{{ route('admin.roles.destroy',$role)}}" style="display: inline">
+                        {{--{{ csrf_field() }} {{-- method_field('PUT') --}}
+                        <button class="btn btn-sm btn-danger" onclick="return confirm('¿Estas seguro de eliminar este rol?')">
+                        <i class="fas fa-trash"></i></button>
                     </form>
                 </td>
               </tr>

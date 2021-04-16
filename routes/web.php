@@ -3,8 +3,6 @@
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
-
-
 Route::get('posts', function () {
     return Post::all();
 });
@@ -12,7 +10,6 @@ Route::get('posts', function () {
 Route::get('/', 'PagesController@home')->name('pages.home');
 Route::get('contact', 'PagesController@contact')->name('pages.contact');
 Route::get('archive', 'PagesController@archive')->name('pages.archive');
-
 Route::get('blog/{id}', 'PostsController@show')->name('posts.show');
 Route::get('categorias/{category}', 'CategoriesController@show')->name('categories.show');
 Route::get('tags/{tag}', 'TagsController@show')->name('tags.show');
@@ -27,19 +24,14 @@ Route::group(
     function () {
 
         Route::get('/', 'AdminController@index')->name('dashboard');
-
-       // Route::get('users', 'UserController@index')->name('user.index');
-      //  Route::get('users/{user}', 'UserController@show')->name('user.show');
         Route::delete('photos/{photo}', 'PhotosController@destroy')->name('admin.photos.destroy');
         Route::post('posts', 'PostsController@save')->name('admin.posts.save');
         Route::post('posts/{post}/photos', 'PhotosController@store')->name('admin.posts.photos.store');
         Route::post('posts/{post}', 'PostsController@disable')->name('admin.posts.disable');
         Route::post('users/{user}', 'UserController@disable')->name('admin.users.disable');
-
         Route::resource('posts', 'PostsController', ['except' => 'show', 'as' => 'admin']);
         Route::resource('users', 'UserController', ['as' => 'admin']);
         Route::resource('roles', 'RolesController', ['as' => 'admin']);
-
         /*Route::get('posts', 'PostsController@index')->name('admin.posts.index');
         Route::get('posts/create', 'PostsController@create')->name('admin.posts.create');
         Route::post('posts', 'PostsController@store')->name('admin.posts.store');

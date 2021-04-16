@@ -67,7 +67,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.roles.index') }}" class="nav-link"> <!--faltaba la ruta -->
                         <i class="far fa-eye nav-icon"></i>
                         <p>Roles</p>
                     </a>
