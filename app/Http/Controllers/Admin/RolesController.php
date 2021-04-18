@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role; //este lo tuve que agregar
+use Spatie\Permission\Models\Role;
+use App\Http\Requests\SaveRolesRequest;
 
 class RolesController extends Controller
 {
@@ -20,7 +21,7 @@ class RolesController extends Controller
             'roles' => Role::all()
 
         ]);
-         //Retorna la vista en /resources/views/admin/roles/index.blade.php/
+        //Retorna la vista en /resources/views/admin/roles/index.blade.php/
     }
 
     /**
@@ -33,29 +34,26 @@ class RolesController extends Controller
 
     public function create()
     {
-        $permissions=Permission::pluck('name','id');
-        $role=new Role();
-        return view('admin.roles.create',compact('permissions','role'));
+        $permissions = Permission::pluck('name', 'id');
+        $role = new Role();
+        return view('admin.roles.create', compact('permissions', 'role'));
     }
 
     /**
      * Store a newly created resource in storage.*/
 
-     //@param  \Illuminate\Http\Request  $request
+    //@param  \Illuminate\Http\Request  $request
     // @return \Illuminate\Http\Response
 
-    public function store(Request $request)
+    public function store(SaveRolesRequest $request)
     {
 
-        $data=$request->validate([
-            'name' => 'required|unique:Roles',
-            'guard_name' =>'required'
-        ]);
-        $role=Role::create($data);
-        if($request->has('permissions')){
+        //Las validaciones se estan realizando mediante la clase SaveRolesRequest
+        $role = Role::create($request->validated());
+        if ($request->has('permissions')) {
             $role->givePermissionTo($request->permissions);
         }
-        return redirect()->route('admin.roles.index')->withFlash('Rol creado con exito !!') ;
+        return redirect()->route('admin.roles.index')->withFlash('Rol creado con exito !!');
     }
 
     /**
@@ -75,10 +73,10 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role )
+    public function edit(Role $role)
     {
-        $permissions=Permission::pluck('name','id');
-        return view('admin.roles.edit',compact('role','permissions'));
+        $permissions = Permission::pluck('name', 'id');
+        return view('admin.roles.edit', compact('role', 'permissions'));
     }
 
     /**
@@ -88,20 +86,17 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(SaveRolesRequest $request, Role $role)
     {
-        $data=$request->validate([
-            'name' => 'required|unique:Roles,name,'.$role->id,
-            'guard_name' =>'required'
-        ]);
-        $role->update($data);
+        //Las validaciones se estan realizando mediante la clase SaveRolesRequest
+        $role->update($request->validated());
         $role->permissions()->detach();
 
-        if($request->has('permissions')){
+        if ($request->has('permissions')) {
             $role->givePermissionTo($request->permissions);
         }
 
-        return redirect()->route('admin.roles.edit',$role)->withFlash('Rol actualizado con exito !!') ;
+        return redirect()->route('admin.roles.edit', $role)->withFlash('Rol actualizado con exito !!');
     }
 
     /**
@@ -110,8 +105,14 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
+        if ($role->id === 1) {
+            throw new \Illuminate\Auth\Access\AuthorizationException('El rol administrador no se puede eliminar');
+        } else {
+            $role->delete();
+        }
+
+        return redirect()->route('admin.roles.index', $role)->withFlash('Rol Eliminado con exito !!');
     }
 }

@@ -32,25 +32,19 @@
             <thead>
             <tr>
               <th>ID</th>
+              <th>Identificador</th>
               <th>Titulo</th> {{--aca lo cambie a name, antes decia Nombre--}}
               <th>Permisos</th>
-              {{--<th>Rol</th>--}} {{--supuestamente se tiene que borrar--}}
               <th></th>
             </tr>
             </thead>
-
-
             <tbody>
                 @foreach ($roles as $role)
                 <tr>
                 <td>{{ $role->id }}</td>
                 <td>{{ $role->name }}</td>
-                {{--<td>{{ $role->guard_name}}</td>se le cambio el nombre de email por guard_name--}}
-                <td>
-                    {{--@foreach ( $roles->permissions as $permission )
-                    {{$permission->name}}
-                   @endforeach--}}
-                </td>
+                <td>{{ $role->display_name }}</td>
+                <td>{{$role->permissions->pluck('name')->implode(', ')}}</td>
                 <td><a href="{{ route('admin.roles.show', $role)}}"
                        class="btn btn-sm btn-info" ><i class="far fa-eye"></i></a>
 
@@ -58,7 +52,7 @@
                        class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
 
                     <form method="POST" action="{{ route('admin.roles.destroy',$role)}}" style="display: inline">
-                        {{--{{ csrf_field() }} {{-- method_field('PUT') --}}
+                       {{ csrf_field()}} {{ method_field('DELETE') }}
                         <button class="btn btn-sm btn-danger" onclick="return confirm('¿Estas seguro de eliminar este rol?')">
                         <i class="fas fa-trash"></i></button>
                     </form>

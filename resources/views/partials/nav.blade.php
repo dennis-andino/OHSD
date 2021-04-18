@@ -15,12 +15,14 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   CATEGORIAS
                 </a>
+                @if(isset($categories))
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     @foreach ($categories as $category)
                     <li><a class="dropdown-item" href="{{ route('categories.show',$category)}}">{{$category->name}}</a></li>
                     <li><hr class="dropdown-divider"></li>
                     @endforeach
                 </ul>
+                @endif
               </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('pages.archive')}}">INFORMES</a>
