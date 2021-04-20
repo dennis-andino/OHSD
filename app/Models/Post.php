@@ -37,15 +37,13 @@ class Post extends Model
     {
         $query->latest('published_at')
             ->where('published_at', '<=', Carbon::now())
-            ->where('visible',1);
+            ->where('visible', 1);
     }
 
     public function scopeAllowed($query)
     {
-        if( auth()->user()->can('read_post',$this) )
-        {
-
-            return $query->where('visible',1);
+        if (auth()->user()->can('read_post', $this)) {
+            return $query->where('visible', 1);
         }
         return $query->where('user_id', auth()->id());
     }
@@ -55,10 +53,17 @@ class Post extends Model
         return $this->hasMany(Photo::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comments::class);
+    }
+
     public function autor()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
+
+
 
     public function setPublishedAtAttribute($published_at)
     {

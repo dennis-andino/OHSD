@@ -36,24 +36,24 @@ class OhsdTableSeeder extends Seeder
 
 
         //Roles
-        $adminRole = Role::create(['name' => 'Admin']);
-        $writerRole = Role::create(['name' => 'Writer']);
-        $readerRole = Role::create(['name' => 'Reader']);
+        $adminRole = Role::create(['name' => 'Admin', 'display_name' => 'Administrador']);
+        $writerRole = Role::create(['name' => 'Writer', 'display_name' => 'Escritor']);
+        $readerRole = Role::create(['name' => 'Reader', 'display_name' => 'Supervisor']);
 
         //Permisos
-        $viewPermissionPost = Permission::create(['name' => 'read_post']);
-        $viewPermissionPost = Permission::create(['name' => 'read_global_post']);
-        $createPermissionPost = Permission::create(['name' => 'create_post']);
-        $editPermissionPost = Permission::create(['name' => 'edit_post']);
-        $deletePermissionPost = Permission::create(['name' => 'delete_post']);
-        $viewPermissionUser = Permission::create(['name' => 'read_user']);
-        $createPermissionUser = Permission::create(['name' => 'create_user']);
-        $editPermissionUser = Permission::create(['name' => 'edit_user']);
-        $deletePermissionUser = Permission::create(['name' => 'delete_user']);
-        $viewPermissionRoles = Permission::create(['name' => 'read_roles']);
-        $createPermissionRoles = Permission::create(['name' => 'create_roles']);
-        $editPermissionRoles = Permission::create(['name' => 'edit_roles']);
-        $deletePermissionRoles = Permission::create(['name' => 'delete_roles']);
+        $viewPermissionPost = Permission::create(['name' => 'read_post', 'display_name' => 'ver_publicaciones']);
+        $viewPermissionPost = Permission::create(['name' => 'read_global_post', 'display_name' => 'ver_globalmente_publicaciones']);
+        $createPermissionPost = Permission::create(['name' => 'create_post', 'display_name' => 'Crear_publicaciones']);
+        $editPermissionPost = Permission::create(['name' => 'edit_post', 'display_name' => 'editar_publicaciones']);
+        $deletePermissionPost = Permission::create(['name' => 'delete_post', 'display_name' => 'borrar_publicaciones']);
+        $viewPermissionUser = Permission::create(['name' => 'read_user', 'display_name' => 'ver usuarios']);
+        $createPermissionUser = Permission::create(['name' => 'create_user', 'display_name' => 'crear_usuarios']);
+        $editPermissionUser = Permission::create(['name' => 'edit_user', 'display_name' => 'editar-usuarios']);
+        $deletePermissionUser = Permission::create(['name' => 'delete_user', 'display_name' => 'borrar_usuarios']);
+        $viewPermissionRoles = Permission::create(['name' => 'read_roles', 'display_name' => 'ver_roles']);
+        $createPermissionRoles = Permission::create(['name' => 'create_roles', 'display_name' => 'crear_roles']);
+        $editPermissionRoles = Permission::create(['name' => 'edit_roles', 'display_name' => 'editar_roles']);
+        $deletePermissionRoles = Permission::create(['name' => 'delete_roles', 'display_name' => 'borrar_roles']);
 
         //Permisos heredados por Rol Admin
         $adminRole->givePermissionTo('read_post');

@@ -7,12 +7,17 @@ Route::get('posts', function () {
     return Post::all();
 });
 
+/*Route::get('email', function () {
+    return new App\Mail\CommentNotification(App\Models\Comments::first());
+});*/
+
 Route::get('/', 'PagesController@home')->name('pages.home');
 Route::get('contact', 'PagesController@contact')->name('pages.contact');
 Route::get('archive', 'PagesController@archive')->name('pages.archive');
 Route::get('blog/{id}', 'PostsController@show')->name('posts.show');
 Route::get('categorias/{category}', 'CategoriesController@show')->name('categories.show');
 Route::get('tags/{tag}', 'TagsController@show')->name('tags.show');
+Route::post('comments', 'CommentsController@store')->name('comments.store');
 
 //paginas de administracion
 Route::group(
@@ -31,7 +36,9 @@ Route::group(
         Route::post('users/{user}', 'UserController@disable')->name('admin.users.disable');
         Route::resource('posts', 'PostsController', ['except' => 'show', 'as' => 'admin']);
         Route::resource('users', 'UserController', ['as' => 'admin']);
-        Route::resource('roles', 'RolesController', ['as' => 'admin']);
+        Route::resource('roles', 'RolesController', ['except' => 'show','as' => 'admin']);
+        Route::resource('permissions', 'PermissionsController', ['except' => 'show','as' => 'admin']);
+        Route::resource('comments', 'CommentsController', ['only' => ['index','destroy'],'as' => 'admin']);
         /*Route::get('posts', 'PostsController@index')->name('admin.posts.index');
         Route::get('posts/create', 'PostsController@create')->name('admin.posts.create');
         Route::post('posts', 'PostsController@store')->name('admin.posts.store');

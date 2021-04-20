@@ -47,7 +47,7 @@
                 </div><!-- end col -->
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                     <h4><a href="#">OHSD</a></h4>
-                    <p>Quisque sed tristique felis. Lorem <a href="#">visit my website</a> amet, consectetur adipiscing elit. Phasellus quis mi auctor, tincidunt nisl eget, finibus odio. Duis tempus elit quis risus congue feugiat. Thanks for stop Tech Blog!</p>
+                    <p>El Observatorio Hondureño sobre Drogas (OHSD) es la entidad que organiza, recopila y coordina estadısticas y otra información relacionada con las drogas.</p>
                     <div class="topsocial">
                         <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
                         <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
@@ -58,60 +58,35 @@
         </div><!-- end author-box -->
         <hr class="invis1">
         <div class="custombox clearfix">
-            <h4 class="small-title">3 Comentarios</h4>
+            <h4 class="small-title">{{$post->comments->count()}} Comentarios</h4>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="comments-list">
+                        @foreach ($post->comments as $comment )
                         <div class="media">
-                            <a class="media-left" href="#">
-                                <img src="upload/author.jpg" alt="" class="rounded-circle">
-                            </a>
                             <div class="media-body">
-                                <h4 class="media-heading user_name">Amanda Martines <small>5 days ago</small></h4>
-                                <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami readymade swag. Selfies iPhone Kickstarter, drinking vinegar jean.</p>
-                                <!--<a href="#" class="btn btn-primary btn-sm">Reply</a>-->
+                                <h4 class="media-heading user_name">{{$comment->autor}}<small>{{$comment->created_at->format('M d Y')}}</small></h4>
+                                <p>{{$comment->body}}.</p>
                             </div>
                         </div>
-                        <div class="media">
-                            <a class="media-left" href="#">
-                                <img src="upload/author_01.jpg" alt="" class="rounded-circle">
-                            </a>
-                            <div class="media-body">
-
-                                <h4 class="media-heading user_name">Baltej Singh <small>5 days ago</small></h4>
-
-                                <p>Drinking vinegar stumptown yr pop-up artisan sunt. Deep v cliche lomo biodiesel Neutra selfies. Shorts fixie consequat flexitarian four loko tempor duis single-origin coffee. Banksy, elit small.</p>
-
-                                <!--<a href="#" class="btn btn-primary btn-sm">Reply</a>-->
-                            </div>
-                        </div>
-                        <div class="media last-child">
-                            <a class="media-left" href="#">
-                                <img src="upload/author_02.jpg" alt="" class="rounded-circle">
-                            </a>
-                            <div class="media-body">
-
-                                <h4 class="media-heading user_name">Marie Johnson <small>5 days ago</small></h4>
-                                <p>Kickstarter seitan retro. Drinking vinegar stumptown yr pop-up artisan sunt. Deep v cliche lomo biodiesel Neutra selfies. Shorts fixie consequat flexitarian four loko tempor duis single-origin coffee. Banksy, elit small.</p>
-
-                                <!--<a href="#" class="btn btn-primary btn-sm">Reply</a>-->
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div><!-- end col -->
             </div><!-- end row -->
         </div><!-- end custom-box -->
-
         <hr class="invis1">
-
         <div class="custombox clearfix">
             <h4 class="small-title">Agrega tu comentario</h4>
             <div class="row">
+                @include('admin.partials.error-messages')
                 <div class="col-lg-12">
-                    <form class="form-wrapper">
-                        <input type="text" class="form-control" placeholder="Nombre">
-                        <input type="text" class="form-control" placeholder="Correo">
-                        <textarea class="form-control" placeholder="Comentario"></textarea>
+                    <form action="{{ route('comments.store')}}" method="POST" class="form-wrapper">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="post_id" value="{{$post->id}}">
+                        <input type="hidden" name="email" value="{{$post->autor->email}}">
+                        <input type="text" name="autor" value="{{old('autor')}}" class="form-control" placeholder="Nombre">
+                        <input type="email"  name="autor_email" value="{{old('autor_email')}}" class="form-control" placeholder="Correo">
+                        <textarea name="body" class="form-control" placeholder="Comentario">{{old('body')}}</textarea>
                         <button type="submit" class="btn btn-primary">Enviar comentario</button>
                     </form>
                 </div>

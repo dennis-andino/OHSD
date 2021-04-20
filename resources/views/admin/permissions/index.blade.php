@@ -4,13 +4,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Publicaciones registradas</h1>
+            <h1 class="m-0">Listado de permisos</h1>
         </div>
         <!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-            <li class="breadcrumb-item active">Publicaciones</li>
+            <li class="breadcrumb-item active">permisos</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -24,9 +24,7 @@
       <div class="card">
         <div class="card-header">
           <!-- <h3 class="card-title">...</h3> -->
-          @role('Writer')
-          <button class="btn btn-primary float-right" data-toggle="modal" data-target="#editpost">Crear publicación</button>
-          @endrole
+          <a href="{{ route('admin.permissions.create')}}" class="btn btn-primary float-right">Agregar permiso</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -34,27 +32,20 @@
             <thead>
             <tr>
               <th>ID</th>
-              <th>Titulo</th>
-              <th>Categoria</th>
-              <th>Usuario</th>
-              <th>Fecha</th>
+              <th>Identificador</th>
+              <th>Titulo</th> {{--aca lo cambie a name, antes decia Nombre--}}
               <th></th>
             </tr>
             </thead>
             <tbody>
-                @foreach ($posts as $post)
+                @foreach ($permissions as $permission)
                 <tr>
-                <td>{{$post->id}}</td>
-                <td>{{$post->title}}</td>
-                <td>{{$post->category->name}}</td>
-                <td>{{$post->autor->name}}</td>
-                <td>{{$post->published_at}}</td>
-                <td><a href="{{ route('posts.show', $post)}}" class="btn btn-sm btn-info" target="_blank"><i class="far fa-eye"></i></a>
-                    <a href="{{ route('admin.posts.edit', $post)}}" class="btn btn-sm btn-warning"><i class="far fa-edit"></i></a>
-                    <form method="POST" action="{{route('admin.posts.disable', $post)}}" style="display: inline">
-                        {{ csrf_field() }} {{-- method_field('PUT')--}}
-                        <button class="btn btn-sm btn-danger" onclick="return confirm('¿ Estas seguro de eliminar esta publicacion?')"><i class="fas fa-trash"></i></button>
-                    </form>
+                <td>{{ $permission->id }}</td>
+                <td>{{ $permission->name }}</td>
+                <td>{{ $permission->display_name }}</td>
+                <td>
+                    <a href="{{ route('admin.permissions.edit', $permission)}}"
+                       class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                 </td>
               </tr>
                 @endforeach
@@ -93,3 +84,4 @@
 <script src="/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!--   JS Datables -->
 @endpush
+

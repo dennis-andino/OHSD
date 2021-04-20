@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Post;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Spatie\Permission\Models\Permission;
 
-class PostPolicy
+class PermissionPolicy
 {
     use HandlesAuthorization;
 
@@ -21,25 +21,16 @@ class PostPolicy
         //
     }
 
-    public function before($user)
-    {
-        if ($user->hasRole('Admin'))
-        {
-            return true;
-        }
-
-    }
-
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \Spatie\Permission\Models\Permission  $permission
      * @return mixed
      */
-    public function view(User $user, Post $post)
+    public function view(User $user, Permission $permission)
     {
-        return $user->id===$post->user_id || $user->hasPermissionTo('read_post');
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -50,41 +41,41 @@ class PostPolicy
      */
     public function create(User $user)
     {
-       return $user->hasPermissionTo('create_post');
+        return $user->hasRole('Admin');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \Spatie\Permission\Models\Permission  $permission
      * @return mixed
      */
-    public function update(User $user, Post $post)
+    public function update(User $user, Permission $permission)
     {
-        return $user->id===$post->user_id ||  $user->hasPermissionTo('edit_post');
+        return $user->hasRole('Admin');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \Spatie\Permission\Models\Permission  $permission
      * @return mixed
      */
-    public function delete(User $user, Post $post)
+    public function delete(User $user, Permission $permission)
     {
-        return $user->id===$post->user_id || $user->hasPermissionTo('delete_post');
+        return $user->hasRole('Admin');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \Spatie\Permission\Models\Permission  $permission
      * @return mixed
      */
-    public function restore(User $user, Post $post)
+    public function restore(User $user, Permission $permission)
     {
         //
     }
@@ -93,10 +84,10 @@ class PostPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \Spatie\Permission\Models\Permission  $permission
      * @return mixed
      */
-    public function forceDelete(User $user, Post $post)
+    public function forceDelete(User $user, Permission $permission)
     {
         //
     }

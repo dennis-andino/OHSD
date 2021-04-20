@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Post;
+use Spatie\Permission\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PostPolicy
+class RolePolicy
 {
     use HandlesAuthorization;
 
@@ -21,25 +21,16 @@ class PostPolicy
         //
     }
 
-    public function before($user)
-    {
-        if ($user->hasRole('Admin'))
-        {
-            return true;
-        }
-
-    }
-
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Role  $role
      * @return mixed
      */
-    public function view(User $user, Post $post)
+    public function view(User $user, Role $role)
     {
-        return $user->id===$post->user_id || $user->hasPermissionTo('read_post');
+        return $user->hasRole('Admin') || $user->hasPermissionTo('read_roles');
     }
 
     /**
@@ -50,41 +41,46 @@ class PostPolicy
      */
     public function create(User $user)
     {
-       return $user->hasPermissionTo('create_post');
+        return $user->hasRole('Admin') || $user->hasPermissionTo('create_roles');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Role  $role
      * @return mixed
      */
-    public function update(User $user, Post $post)
+    public function update(User $user, Role $role)
     {
-        return $user->id===$post->user_id ||  $user->hasPermissionTo('edit_post');
+        return $user->hasRole('Admin') || $user->hasPermissionTo('edit_roles');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Role  $role
      * @return mixed
      */
-    public function delete(User $user, Post $post)
+    public function delete(User $user, Role $role)
     {
-        return $user->id===$post->user_id || $user->hasPermissionTo('delete_post');
+        if ($role->id === 1) {
+           // throw new \Illuminate\Auth\Access\AuthorizationException('El rol administrador no se puede eliminar');
+           //return false;
+           return $this->deny('El rol administrador no se puede eliminar',403);
+        }
+        return $user->hasRole('Admin') || $user->hasPermissionTo('delete_roles');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Role  $role
      * @return mixed
      */
-    public function restore(User $user, Post $post)
+    public function restore(User $user, Role $role)
     {
         //
     }
@@ -93,10 +89,10 @@ class PostPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Role  $role
      * @return mixed
      */
-    public function forceDelete(User $user, Post $post)
+    public function forceDelete(User $user, Role $role)
     {
         //
     }

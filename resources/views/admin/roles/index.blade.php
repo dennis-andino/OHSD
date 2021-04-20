@@ -45,9 +45,7 @@
                 <td>{{ $role->name }}</td>
                 <td>{{ $role->display_name }}</td>
                 <td>{{$role->permissions->pluck('name')->implode(', ')}}</td>
-                <td><a href="{{ route('admin.roles.show', $role)}}"
-                       class="btn btn-sm btn-info" ><i class="far fa-eye"></i></a>
-
+                <td>
                     <a href="{{ route('admin.roles.edit', $role)}}"
                        class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
 

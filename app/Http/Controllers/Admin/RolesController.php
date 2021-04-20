@@ -17,6 +17,7 @@ class RolesController extends Controller
      */
     public function index()
     {
+        $this->authorize('view',new Role);
         return view('admin.roles.index', [
             'roles' => Role::all()
 
@@ -34,8 +35,9 @@ class RolesController extends Controller
 
     public function create()
     {
+        $this->authorize('store',$role=new Role);
         $permissions = Permission::pluck('name', 'id');
-        $role = new Role();
+        $role = $role;
         return view('admin.roles.create', compact('permissions', 'role'));
     }
 
@@ -47,24 +49,13 @@ class RolesController extends Controller
 
     public function store(SaveRolesRequest $request)
     {
-
+        $this->authorize('store',new Role);
         //Las validaciones se estan realizando mediante la clase SaveRolesRequest
         $role = Role::create($request->validated());
         if ($request->has('permissions')) {
             $role->givePermissionTo($request->permissions);
         }
         return redirect()->route('admin.roles.index')->withFlash('Rol creado con exito !!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -88,6 +79,7 @@ class RolesController extends Controller
      */
     public function update(SaveRolesRequest $request, Role $role)
     {
+        $this->authorize('update', $role); //se validan los permisos
         //Las validaciones se estan realizando mediante la clase SaveRolesRequest
         $role->update($request->validated());
         $role->permissions()->detach();
@@ -107,12 +99,9 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
-        if ($role->id === 1) {
-            throw new \Illuminate\Auth\Access\AuthorizationException('El rol administrador no se puede eliminar');
-        } else {
-            $role->delete();
-        }
 
+        $this->authorize('delete', $role);
+        $role->delete();
         return redirect()->route('admin.roles.index', $role)->withFlash('Rol Eliminado con exito !!');
     }
 }

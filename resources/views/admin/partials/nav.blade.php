@@ -57,7 +57,7 @@
             </ul>
         </li>
 
-        <li class="nav-item menu-open">
+        <li class="nav-item {{--menu-open--}}">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-user-shield"></i>
                 <p>
@@ -73,7 +73,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.permissions.index') }}" class="nav-link">
                         <i class="fas fa-plus nav-icon"></i>
                         <p>Permisos</p>
                     </a>
