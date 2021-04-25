@@ -10,6 +10,7 @@ use Illuminate\Queue\SerializesModels;
 class CommentNotification extends Mailable
 {
     public $comment;
+    public $body;
     use Queueable, SerializesModels;
 
     /**
@@ -17,9 +18,10 @@ class CommentNotification extends Mailable
      *
      * @return void
      */
-    public function __construct($comment)
+    public function __construct($comment,$body)
     {
         $this->comment = $comment;
+        $this->body = $body;
     }
 
     /**
@@ -29,6 +31,6 @@ class CommentNotification extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.CommentNotification',$this->comment);
+        return $this->markdown('emails.CommentNotification')->subject('Nuevo Comentario en OHSD');
     }
 }

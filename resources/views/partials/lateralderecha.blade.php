@@ -28,81 +28,18 @@
         </div><!-- end widget -->
 
         <div class="widget">
-            <h2 class="widget-title">Popular Posts</h2>
+            <h2 class="widget-title">Archivo</h2>
+            <hr>
             <div class="blog-list-widget">
                 <div class="list-group">
-                    <a href="tech-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
+                    @foreach ($archive as $date )
+                    <a href="{{ route('pages.home',['month'=>$date->month , 'year'=>$date->year]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="w-100 justify-content-between">
-                            <img src="/front/upload/tech_blog_08.jpg" alt="" class="img-fluid float-left">
-                            <h5 class="mb-1">5 Beautiful buildings you need..</h5>
-                            <small>12 Jan, 2016</small>
+                            <h5 class="mb-1">{{$date->monthname}}-{{$date->year}} ({{$date->posts}})</h5>
                         </div>
                     </a>
 
-                    <a href="tech-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="w-100 justify-content-between">
-                            <img src="/front/upload/tech_blog_01.jpg" alt="" class="img-fluid float-left">
-                            <h5 class="mb-1">Let's make an introduction for..</h5>
-                            <small>11 Jan, 2016</small>
-                        </div>
-                    </a>
-
-                    <a href="tech-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="w-100 last-item justify-content-between">
-                            <img src="/front/upload/tech_blog_03.jpg" alt="" class="img-fluid float-left">
-                            <h5 class="mb-1">Did you see the most beautiful..</h5>
-                            <small>07 Jan, 2016</small>
-                        </div>
-                    </a>
-                </div>
-            </div><!-- end blog-list -->
-        </div><!-- end widget -->
-
-        <div class="widget">
-            <h2 class="widget-title">Recent Reviews</h2>
-            <div class="blog-list-widget">
-                <div class="list-group">
-                    <a href="tech-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="w-100 justify-content-between">
-                            <img src="/front/upload/tech_blog_02.jpg" alt="" class="img-fluid float-left">
-                            <h5 class="mb-1">Banana-chip chocolate cake recipe..</h5>
-                            <span class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </span>
-                        </div>
-                    </a>
-
-                    <a href="tech-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="w-100 justify-content-between">
-                            <img src="/front/upload/tech_blog_03.jpg" alt="" class="img-fluid float-left">
-                            <h5 class="mb-1">10 practical ways to choose organic..</h5>
-                            <span class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </span>
-                        </div>
-                    </a>
-
-                    <a href="tech-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="w-100 last-item justify-content-between">
-                            <img src="/front/upload/tech_blog_07.jpg" alt="" class="img-fluid float-left">
-                            <h5 class="mb-1">We are making homemade ravioli..</h5>
-                            <span class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </span>
-                        </div>
-                    </a>
+                    @endforeach
                 </div>
             </div><!-- end blog-list -->
         </div><!-- end widget -->

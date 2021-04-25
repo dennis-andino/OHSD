@@ -14,13 +14,15 @@ class CommentWasCreated
 {
     use Dispatchable, SerializesModels;
     public $comment;
+    public $body;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($comment)
+    public function __construct($comment,$body)
     {
         $this->comment = $comment;
+        $this->body=$body;
     }
 }

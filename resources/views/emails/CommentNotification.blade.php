@@ -5,7 +5,7 @@ Un nuevo comentario pendiente de revisar.
 
 @component('mail::table')
     <br>
-    {{ $comment['autor']}}|{{ $comment['autor_email']}}|{{ $comment['body']}}
+    {{ $comment['name']}}|{{ $body}}
 @endcomponent
 
 

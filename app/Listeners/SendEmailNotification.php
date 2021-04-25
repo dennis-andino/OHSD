@@ -23,7 +23,7 @@ class SendEmailNotification
     {
      //dd($event->comment); //permite observar los datos recibidos
         Mail::to($event->comment)->queue(
-            new CommentNotification($event->comment)
+            new CommentNotification($event->comment,$event->body)
         );
     }
 }

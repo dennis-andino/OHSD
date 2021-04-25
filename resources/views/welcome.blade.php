@@ -45,7 +45,7 @@
                 <ul class="pagination justify-content-start">
                     <!--<li class="page-item"><a class="page-link" href="#">1</a></li>-->
                     <li class="page-item">
-                         {{$posts->links()}}
+                         {{$posts->appends(request()->all())->links()}}
                     </li>
                 </ul>
             </nav>
