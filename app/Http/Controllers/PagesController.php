@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\App;
 
 class PagesController extends Controller
 {
+
+
     public function home()
     {
         \DB::statement("SET lc_time_names='es_ES'");
@@ -39,8 +41,8 @@ class PagesController extends Controller
         return view('pages.contact');
     }
 
-    public function archive()
+    public function reports()
     {
-        return view('pages.archive');
+        return view('pages.reports');
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Informes;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
+use App\Models\Report;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Carbon\Carbon;
@@ -26,12 +27,12 @@ class OhsdTableSeeder extends Seeder
         Storage::disk('public')->deleteDirectory('posts'); // Borra el directorio de imagenes.
         Schema::disableForeignKeyConstraints();
         Category::truncate();
-        Informes::truncate();
         Post::truncate();
         User::truncate();
         Role::truncate();
         Permission::truncate();
         Tag::truncate();
+        Report::truncate();
         Schema::enableForeignKeyConstraints();
 
 

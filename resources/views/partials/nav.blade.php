@@ -25,7 +25,7 @@
                 @endif
               </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('pages.archive')}}">INFORMES</a>
+                <a class="nav-link" href="{{ route('pages.reports')}}">INFORMES</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('pages.contact')}}">¿QUIENES SOMOS?</a>

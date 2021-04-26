@@ -19,8 +19,8 @@
             <ul class="nav nav-treeview">
                 <li class="nav-item ">
                     <a href="{{ route('admin.posts.index') }}" class="nav-link">
-                        <i class="fas fa-blog"></i>
-                        <p>Ver todas</p>
+                        <i class="far fa-eye"></i>
+                        <p>Mostrar todas</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -31,6 +31,26 @@
                     @endif
                     <i class="far fa-file"></i>
                     <p>Crear nueva</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link {{ request()->is('admin/posts') ? ' active' : '' }}">
+                <i class="nav-icon fas fa-book"></i>
+                <p>Informes<i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item ">
+                    <a href="{{ route('admin.reports.index') }}" class="nav-link">
+                        <i class="far fa-eye"></i>
+                        <p>Mostrar todos</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.reports.create') }}" class="nav-link">
+                        <i class="far fa-file"></i>
+                        <p>Crear nuevo</p>
                     </a>
                 </li>
             </ul>

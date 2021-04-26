@@ -13,7 +13,7 @@ Route::get('posts', function () {
 
 Route::get('/', 'PagesController@home')->name('pages.home');
 Route::get('contact', 'PagesController@contact')->name('pages.contact');
-Route::get('archive', 'PagesController@archive')->name('pages.archive');
+Route::get('reports', 'PagesController@reports')->name('pages.reports');
 Route::get('blog/{id}', 'PostsController@show')->name('posts.show');
 Route::get('categorias/{category}', 'CategoriesController@show')->name('categories.show');
 Route::get('tags/{tag}', 'TagsController@show')->name('tags.show');
@@ -39,6 +39,7 @@ Route::group(
         Route::resource('roles', 'RolesController', ['except' => 'show','as' => 'admin']);
         Route::resource('permissions', 'PermissionsController', ['except' => 'show','as' => 'admin']);
         Route::resource('comments', 'CommentsController', ['only' => ['index','destroy'],'as' => 'admin']);
+        Route::resource('reports', 'ReportsController', ['except' => 'show','as' => 'admin']);
         /*Route::get('posts', 'PostsController@index')->name('admin.posts.index');
         Route::get('posts/create', 'PostsController@create')->name('admin.posts.create');
         Route::post('posts', 'PostsController@store')->name('admin.posts.store');

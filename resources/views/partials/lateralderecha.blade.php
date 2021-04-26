@@ -32,14 +32,15 @@
             <hr>
             <div class="blog-list-widget">
                 <div class="list-group">
+                    @if(isset($archive))
                     @foreach ($archive as $date )
                     <a href="{{ route('pages.home',['month'=>$date->month , 'year'=>$date->year]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="w-100 justify-content-between">
                             <h5 class="mb-1">{{$date->monthname}}-{{$date->year}} ({{$date->posts}})</h5>
                         </div>
                     </a>
-
                     @endforeach
+                    @endif
                 </div>
             </div><!-- end blog-list -->
         </div><!-- end widget -->
