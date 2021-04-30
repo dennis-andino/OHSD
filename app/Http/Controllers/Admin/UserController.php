@@ -115,8 +115,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        var_dump($user);
-        die;
         $this->authorize('delete', "user");
         $user->visible = false;
         $user->update();

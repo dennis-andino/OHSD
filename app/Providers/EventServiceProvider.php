@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\CommentWasCreated' => [
             'App\Listeners\SendEmailNotification',
         ],
+        'App\Events\ActionWasCreated'=>[
+            'App\Listeners\ActionRegister'
+        ]
     ];
 
     /**

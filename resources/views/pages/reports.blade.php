@@ -13,26 +13,25 @@
                 <a href="#"><i class="fa fa-rss"></i></a></h4>
         </div><!-- end blog-top -->
         <div class="blog-list clearfix">
-            {{--@foreach ($posts as $post ) --}}
+            @foreach ($reports as $report )
             <div class="blog-box row">
                 <div class="col-md-4">
                     <div class="post-media">
-                        <a href="" title="">
-                            <img src="/storage/{{-- $post->photos->first()->url--}}" alt="" class="img-fluid">
+                        <a href="/storage/{{$report->attached}}" title="Informe" target="_blank">
+                            <img src="/img/pdfreport.png" alt="Portada informe" width="80" height="200" class="fluid">
                             <div class="hovereffect"></div>
                         </a>
                     </div><!-- end media -->
                 </div><!-- end col -->
                 <div class="blog-meta big-meta col-md-8">
-                    <h4><a href="" title="">Nombre de Informe</a></h4>
-                        <p>Resumen de informe</p>
-                    <small class="firstsmall"><a class="bg-orange" href="" title="">Año</a></small>
-                    <small><a href="" title="">fecha de publicacion</a></small>
-                    <small><a href="" title="">by OHSD</a></small><br>
+                    <h4><a href="" title="">{{$report->title}}</a></h4>
+                        <p>{{$report->description}}</p>
+                    <small><a class="bg-orange" href="" title="">{{$report->created_at->format('Y')}}</a></small>
+                    <small>by OHSD</small><br>
                 </div><!-- end meta -->
             </div><!-- end blog-box -->
             <hr class="invis">
-            {{--@endforeach--}}
+            @endforeach
         </div><!-- end blog-list -->
     </div><!-- end page-wrapper -->
     <hr class="invis">

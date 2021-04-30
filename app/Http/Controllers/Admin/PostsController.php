@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Events\ActionWasCreated;
 use Carbon\Carbon;
 use App\Http\Requests\StorePostRequest;
 
@@ -36,6 +37,7 @@ class PostsController extends Controller
         $post->user_id = auth()->user()->id;
         $post->category_id = 1;
         $post->save();
+        ActionWasCreated::dispatch('post_creado','El usuario'.auth()->user()->name.' creo el post '.$post->title, auth()->user()->id);
         //retorna la vista de edicion de publicacacion
         return redirect()->route('admin.posts.edit', $post);
     }
@@ -58,7 +60,7 @@ class PostsController extends Controller
 
     public function destroy(Post $post)
     {
-        dd(); die;
+        ActionWasCreated::dispatch('post_eliminado','El usuario'.auth()->user()->name.' elimino el post '.$post->title, auth()->user()->id);
         $this->authorize('delete', $post);
         $post->update([
             'visible' => false

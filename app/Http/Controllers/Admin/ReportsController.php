@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Report;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ReportsController extends Controller
 {
@@ -51,7 +52,7 @@ class ReportsController extends Controller
             'description' => request()->get('description'),
         ]);
 
-        return back()->with('flash', 'Tu Informe ha sido Publicado exitosamente');
+        return redirect()->route('admin.reports.index')->with('flash', 'Tu Informe ha sido Publicado exitosamente');
     }
 
 
@@ -61,9 +62,9 @@ class ReportsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Report $report)
     {
-        //
+
     }
 
     /**
@@ -73,9 +74,9 @@ class ReportsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
     }
 
     /**
@@ -84,8 +85,10 @@ class ReportsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Report $report)
     {
-        //
+        $report->delete(); //Elimina el registro del reporte en la base de datos
+        Storage::disk('public')->delete($report->attached); //Elimina el reporte almacenado
+        return redirect()->route('admin.reports.index')->with('flash', 'El reporte ha sido eliminado.');
     }
 }

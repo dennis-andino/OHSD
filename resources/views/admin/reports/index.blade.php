@@ -51,9 +51,8 @@
                 <td>{{$report->autor->name}}</td>
 
                 <td><a href="/storage/{{$report->attached}}" class="btn btn-sm btn-info" target="_blank"><i class="far fa-eye"></i></a>
-                    <a href="{{ route('admin.reports.edit', $report)}}" class="btn btn-sm btn-warning"><i class="far fa-edit"></i></a>
-                    <form method="POST" action="{{-- route('admin.reports.disable',$report)--}}" style="display: inline">
-                        {{ csrf_field() }} {{-- method_field('PUT') --}}
+                    <form method="POST" action="{{ route('admin.reports.destroy',$report)}}" style="display: inline">
+                        {{ csrf_field() }} {{ method_field('DELETE') }}
                         <button class="btn btn-sm btn-danger" onclick="return confirm('¿Estas seguro de eliminar este Usuario?')"><i class="fas fa-trash"></i></button>
                     </form>
                 </td>

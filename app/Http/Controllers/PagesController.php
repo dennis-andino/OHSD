@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Report;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -14,7 +15,7 @@ class PagesController extends Controller
 
     public function home()
     {
-        \DB::statement("SET lc_time_names='es_ES'");
+      
         $query=Post::published();
 
         if(request('month')){
@@ -43,6 +44,7 @@ class PagesController extends Controller
 
     public function reports()
     {
-        return view('pages.reports');
+        $reports=Report::all();
+        return view('pages.reports',compact('reports'));
     }
 }

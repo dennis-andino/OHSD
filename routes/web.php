@@ -3,9 +3,6 @@
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
-Route::get('posts', function () {
-    return Post::all();
-});
 
 /*Route::get('email', function () {
     return new App\Mail\CommentNotification(App\Models\Comments::first());
@@ -39,7 +36,7 @@ Route::group(
         Route::resource('roles', 'RolesController', ['except' => 'show','as' => 'admin']);
         Route::resource('permissions', 'PermissionsController', ['except' => 'show','as' => 'admin']);
         Route::resource('comments', 'CommentsController', ['only' => ['index','destroy'],'as' => 'admin']);
-        Route::resource('reports', 'ReportsController', ['except' => 'show','as' => 'admin']);
+        Route::resource('reports', 'ReportsController', ['except' => ['edit','update','show'],'as' => 'admin']);
         /*Route::get('posts', 'PostsController@index')->name('admin.posts.index');
         Route::get('posts/create', 'PostsController@create')->name('admin.posts.create');
         Route::post('posts', 'PostsController@store')->name('admin.posts.store');
