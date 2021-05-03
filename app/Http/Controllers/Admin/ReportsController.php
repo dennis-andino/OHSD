@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Report;
+use App\Events\ActionWasCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,7 +17,13 @@ class ReportsController extends Controller
      */
     public function index()
     {
-        $reports = Report::all();
+        if (auth()->user()->hasRole('Admin')) {
+            $reports = Report::all();
+        } else {
+            $reports = Report::where('user_id', auth()->id())->get();
+            //$reports = auth()->user()->reports;
+        }
+
         return view('admin.reports.index', compact('reports'));
     }
 
@@ -51,7 +58,7 @@ class ReportsController extends Controller
             'title' => request()->get('title'),
             'description' => request()->get('description'),
         ]);
-
+        ActionWasCreated::dispatch('informe_creado','El usuario'.auth()->user()->name.' creo el informe '.$request['title'], auth()->user()->id);
         return redirect()->route('admin.reports.index')->with('flash', 'Tu Informe ha sido Publicado exitosamente');
     }
 
@@ -64,7 +71,6 @@ class ReportsController extends Controller
      */
     public function edit(Report $report)
     {
-
     }
 
     /**
@@ -76,7 +82,6 @@ class ReportsController extends Controller
      */
     public function update(Request $request)
     {
-
     }
 
     /**
@@ -89,6 +94,7 @@ class ReportsController extends Controller
     {
         $report->delete(); //Elimina el registro del reporte en la base de datos
         Storage::disk('public')->delete($report->attached); //Elimina el reporte almacenado
+        ActionWasCreated::dispatch('informe_eliminado', 'El usuario' . auth()->user()->name . ' elimino el informe ' . $report->title, auth()->user()->id);
         return redirect()->route('admin.reports.index')->with('flash', 'El reporte ha sido eliminado.');
     }
 }

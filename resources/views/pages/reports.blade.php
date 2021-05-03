@@ -24,7 +24,7 @@
                     </div><!-- end media -->
                 </div><!-- end col -->
                 <div class="blog-meta big-meta col-md-8">
-                    <h4><a href="" title="">{{$report->title}}</a></h4>
+                    <h4><a href="/storage/{{$report->attached}}" title="">{{$report->title}}</a></h4>
                         <p>{{$report->description}}</p>
                     <small><a class="bg-orange" href="" title="">{{$report->created_at->format('Y')}}</a></small>
                     <small>by OHSD</small><br>

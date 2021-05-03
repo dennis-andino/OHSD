@@ -26,12 +26,13 @@ Route::group(
     function () {
 
         Route::get('/', 'AdminController@index')->name('dashboard');
+        Route::get('binaccle', 'BinnacleController@index')->name('admin.binnacle');
         Route::delete('photos/{photo}', 'PhotosController@destroy')->name('admin.photos.destroy');
         Route::post('posts', 'PostsController@save')->name('admin.posts.save');
         Route::post('posts/{post}/photos', 'PhotosController@store')->name('admin.posts.photos.store');
         Route::post('posts/{post}', 'PostsController@disable')->name('admin.posts.disable');
         Route::post('users/{user}', 'UserController@disable')->name('admin.users.disable');
-        Route::resource('posts', 'PostsController', ['except' => 'show', 'as' => 'admin']);
+        Route::resource('posts', 'PostsController', ['except' => ['show','create'], 'as' => 'admin']);
         Route::resource('users', 'UserController', ['as' => 'admin']);
         Route::resource('roles', 'RolesController', ['except' => 'show','as' => 'admin']);
         Route::resource('permissions', 'PermissionsController', ['except' => 'show','as' => 'admin']);

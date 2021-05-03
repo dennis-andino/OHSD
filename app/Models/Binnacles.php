@@ -13,4 +13,9 @@ class Binnacles extends Model
         'description',
         'user_id'
     ];
+
+    public function autor()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

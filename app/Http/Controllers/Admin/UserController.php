@@ -56,7 +56,6 @@ class UserController extends Controller
         $user = User::create($data);
         $user->assignRole($request->roles);
         $user->givePermissionTo($request->permissions);
-
         return redirect()->route('admin.users.index')->with('flash', 'Usuario creado satisfactoriamente.');
     }
 
@@ -115,7 +114,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $this->authorize('delete', "user");
+        $this->authorize('delete',$user);
         $user->visible = false;
         $user->update();
         return redirect()->route('admin.users.index')->withFlash('Usuario Eliminado');
@@ -124,9 +123,9 @@ class UserController extends Controller
 
     public function disable(User $user)
     {
-        //var_dump($user); die;
-        $this->authorize('delete', "user");
+        $this->authorize('delete',$user);
         $user->visible = false;
+        $user->password = bcrypt($user->password);
         $user->update();
         return redirect()->route('admin.users.index')->withFlash('Usuario Eliminado');
     }

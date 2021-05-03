@@ -57,7 +57,7 @@ class OhsdTableSeeder extends Seeder
         $deletePermissionRoles = Permission::create(['name' => 'delete_roles', 'display_name' => 'borrar_roles']);
 
         //Permisos heredados por Rol Admin
-        $adminRole->givePermissionTo('read_post');
+        $adminRole->givePermissionTo('read_global_post');
         $adminRole->givePermissionTo('delete_post');
         $adminRole->givePermissionTo('read_user');
         $adminRole->givePermissionTo('create_user');
@@ -77,6 +77,13 @@ class OhsdTableSeeder extends Seeder
         $readerRole->givePermissionTo('read_global_post');
 
 
+        //Usuario Administrador
+        $admin = new User();
+        $admin->name = 'Sys';
+        $admin->email = 'sys@ohsd.com';
+        $admin->password = bcrypt('administr@dor');
+        $admin->photo = 'defaultUser.png';
+        $admin->save();
 
         //Usuario Administrador
         $admin = new User();
@@ -114,12 +121,14 @@ class OhsdTableSeeder extends Seeder
         $category->save();
         //Categoria 2
         $category = new Category();
-        $category->name = 'oferta';
+        $category->name = 'Oferta';
         $category->save();
         //Categoria 3
         $category = new Category();
         $category->name = 'Demanda';
         $category->save();
+
+
 
         //posts 1
         $post = new Post();

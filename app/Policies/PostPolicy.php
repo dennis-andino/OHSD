@@ -39,7 +39,8 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        return $user->id===$post->user_id || $user->hasPermissionTo('read_post');
+       // return $user->id===$post->user_id || $user->hasPermissionTo('read_post');
+       return $user->id===$post->user_id;
     }
 
     /**

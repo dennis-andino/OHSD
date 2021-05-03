@@ -28,7 +28,9 @@
       <div class="card">
         <div class="card-header">
           <!-- <h3 class="card-title">...</h3> -->
+          @role('Writer')
           <a href="{{route('admin.reports.create')}}" class="btn btn-primary float-right">Agregar Informe</a>
+          @endrole
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -51,10 +53,12 @@
                 <td>{{$report->autor->name}}</td>
 
                 <td><a href="/storage/{{$report->attached}}" class="btn btn-sm btn-info" target="_blank"><i class="far fa-eye"></i></a>
+                    @role('Writer')
                     <form method="POST" action="{{ route('admin.reports.destroy',$report)}}" style="display: inline">
                         {{ csrf_field() }} {{ method_field('DELETE') }}
                         <button class="btn btn-sm btn-danger" onclick="return confirm('¿Estas seguro de eliminar este Usuario?')"><i class="fas fa-trash"></i></button>
                     </form>
+                    @endrole
                 </td>
               </tr>
                 @endforeach

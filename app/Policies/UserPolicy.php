@@ -9,6 +9,13 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user)
+    {
+        if ($user->hasRole('Admin')) {
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -65,6 +72,7 @@ class UserPolicy
     public function delete(User $authUser, User $user)
     {
         return $authUser->id===$user->id || $user->hasPermissionTo('delete_user');
+
     }
 
     /**
@@ -90,11 +98,6 @@ class UserPolicy
     {
         //
     }
-    //Codigo copiado del PostPolicy
-    public function before($user)
-    {
-        if ($user->hasRole('Admin')) {
-            return true;
-        }
-    }
+
+
 }

@@ -133,8 +133,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ auth()->user()->name }} <br>
-                            {{ auth()->user()->roles->first()
-    ? auth()->user()->getRoleDisplayNames(): 'Sin Role' }}</a>
+                            {{ auth()->user()->roles->first()? auth()->user()->getRoleDisplayNames(): 'Sin Role' }}</a>
                     </div>
                 </div>
                 <!-- Sidebar Menu -->

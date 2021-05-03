@@ -17,8 +17,12 @@
             <div class="blog-box row">
                 <div class="col-md-4">
                     <div class="post-media">
-                        <a href="" title="">
+                        <a href="{{ route('posts.show',$post->id)}}" title="imagen">
+                            @if (!$post->photos->isEmpty())
                             <img src="/storage/{{ $post->photos->first()?$post->photos->first()->url:''}}" alt="" class="img-fluid">
+                            @else
+                            <img src="/img/defaultNew.jpg" alt="" class="img-fluid">
+                            @endif
                             <div class="hovereffect"></div>
                         </a>
                     </div><!-- end media -->
@@ -27,7 +31,7 @@
                     <h4><a href=" {{ route('posts.show',$post->id)}}" title="">{{ $post->title}}</a></h4>
                         <p>{{ $post->excerpt}}...</p>
                     <small class="firstsmall"><a class="bg-orange" href="{{route('categories.show',$post->category)}}" title="">{{$post->category->name}}</a></small>
-                    <small><a href="" title="">{{ $post->published_at->format('M d Y')}}</a></small>
+                    <small><a href="" title="">{{ $post->published_at->format('d-m-Y')}}</a></small>
                     <small><a href="" title="">por : OHSD</a></small><br>
                     @foreach ($post->tags as $tag )
             <small><a href="{{ route('tags.show', $tag)}}">#{{ $tag->name}}</a></small>

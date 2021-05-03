@@ -53,12 +53,10 @@
                     <h3 class="card-title">Roles</h3>
                 </div>
                 <div class="card-body">
-
                     @role('Admin')
                     <form method="POST" action="{{ route('admin.users.roles.update', $user) }}">
                         {{ csrf_field() }} {{ method_field('PUT') }}
                         @include('admin.roles.checkboxes')
-
                         <button type="submit" class="btn btn-primary btn-block">Actualizar roles</button>
                     </form>
                 @else
